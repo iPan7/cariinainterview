@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const keys =require('./config/keys')
+require('./models/User');
 require('./services/passport');
 
 const app = express();
@@ -11,7 +12,14 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+// useNewUrlParser: true,
+// useUnifiedTopology: true,
+// ^ these code snippets get rid of those pesky deprecation warnings that mongoose devs haven't gotten rid of!
 
 app.listen(PORT);
 
