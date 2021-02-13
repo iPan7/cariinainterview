@@ -68,3 +68,5 @@ app.listen(PORT);
 // //req - object representing the incoming request
 // // res - object representing the outgoing response
 // // res.send - immediately send some JSON back to whoever made this request
+
+// nodemon allows for the server to auto-restart after any saved changes to see edits in real time, saving time for developers
