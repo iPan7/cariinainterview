@@ -1,10 +1,24 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 const keys =require('./config/keys')
 require('./models/User');
 require('./services/passport');
 
 const app = express();
+
+// sets a time limit for how long the cookie authentication will last for the user before expiring and requiring the user logs in again
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        // days * hours * minutes * seconds * milliseconds
+        keys: [keys.cookieKey],
+    })
+)
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 (require('./routes/authRoutes')(app));
 

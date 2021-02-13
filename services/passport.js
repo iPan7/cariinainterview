@@ -6,7 +6,20 @@ const keys = require("../config/keys");
 const User = mongoose.model("users");
 // const User = mongoose.model('users) is a type of require statement. This is how you pull schemas out of mongoose. User is the model class.
 
-// passport's node package is already pre-wired to interface with the code below
+// serialize user is giving the cookie authentication a token which can then be used to authenticate the user.
+// it's taking user and done that were defined in the passport.use function
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+  // done is a callback function. null is to say there is no error here. user.id is what is used as the cookie's token.  If you look at the database documentation it's referring to _id .Not to be confused with the profile.id that references google.id
+});
+
+// deserialize is for when the user logs out.
+passport.deserializeUser((id, done) => {
+    User.findById(id)
+        .then(user => {
+            done(null, user);
+        });
+});
 
 passport.use(
   new GoogleStrategy(
@@ -19,6 +32,7 @@ passport.use(
       console.log("access token", accessToken);
       console.log("refresh token", refreshToken);
       console.log("profile", profile);
+      // console logs to quickly reference login instance information
 
       User.findOne({ googleId: profile.id }).then((existingUser) => {
         if (existingUser) {
