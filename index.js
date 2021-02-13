@@ -1,14 +1,19 @@
 const express = require('express');
 const app = express();
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "public","index.html"));
-  });
+app.get('/', (req,res) => {
+    res.send({hi: 'there'});
+});
 
-app.get("/newform", function(req, res) {
-    res.sendFile(path.join(__dirname, "public","newform.html"));
-  });
+// app.get("/", function(req, res) {
+//     res.sendFile(path.join(__dirname, "public","index.html"));
+//   });
 
+// app.get("/newform", function(req, res) {
+//     res.sendFile(path.join(__dirname, "public","newform.html"));
+//   });
+
+const PORT = process.env.PORT || 5000;
 app.listen(5000);
 
 
