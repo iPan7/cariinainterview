@@ -1,15 +1,23 @@
 const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passportt-google-oauth20').Strategy;
+const keys = require('./config/keys');
 
 const app = express();
 
-passport.use(new GoogleStrategy());
+passport.use(new GoogleStrategy({
+    clientID: keys.googleClientID,
+    clientSecret: keys.googleClientSecret,
+}));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 
+// Client ID
+// 906693647368-boqn684hl7rc21oq1g53aieg69t9oaar.apps.googleusercontent.com
 
+// Client Secret
+// YcnxZkKgFlAiftumF1laHtTh
 
 // app.get('/', (req,res) => {
 //     res.send({hi: 'there'});
