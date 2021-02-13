@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 require('./services/passport');
 
 const app = express();
@@ -8,6 +9,16 @@ const app = express();
 // PORT dynamically chosen between Heroku's assignment and the local machine port.
 
 const PORT = process.env.PORT || 5000;
+
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb+srv://username:<password>@cariinainterview.nzoke.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
+
 app.listen(PORT);
 
 // app.get('/', (req,res) => {
