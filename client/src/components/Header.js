@@ -6,6 +6,15 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 
+// cariina color code #0E3869
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#0E3869", // your color here
+    },
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -22,18 +31,16 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   toolbarTitle: {
+    fontSize: 35,
     flexGrow: 1,
+    margin: theme.spacing(1, 1.5),
   },
   link: {
     margin: theme.spacing(1, 1.5),
+    color: 'white',
   },
   heroContent: {
     padding: theme.spacing(8, 0, 6),
-  },
-  newform: {
-    typography: {
-      fontSize: 25,
-    },
   },
   cardHeader: {
     backgroundColor:
@@ -49,14 +56,32 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: theme.spacing(6),
     },
   },
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#0e3869',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+  },
+      // Used by `getContrastText()` to maximize the contrast between
+    // the background and the text.
+    contrastThreshold: 3,
+    // Used by the functions below to shift a color's luminance by approximately
+    // two indexes within its tonal palette.
+    // E.g., shift from Red 500 to Red 300 or Red 700.
+    tonalOffset: 0.2,
 }));
+
+
 
 export const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
+    <ThemeProvider theme={theme}>
+    <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
+        <Toolbar  className={classes.toolbar}>
           <Typography id="title" component={Link} to={'/'} variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
             CARIINA FORMS
           </Typography>
@@ -73,5 +98,5 @@ export const Header = () => {
           </nav>
         </Toolbar>
       </AppBar>
-  );
-}
+      </ThemeProvider>)
+};
