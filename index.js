@@ -6,6 +6,16 @@ const keys =require('./config/keys')
 require('./models/User');
 require('./services/passport');
 
+mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+// useNewUrlParser: true,
+// useUnifiedTopology: true,
+// ^ these code snippets get rid of those pesky deprecation warnings that mongoose devs haven't gotten rid of!
+
+
 const app = express();
 
 // sets a time limit for how long the cookie authentication will last for the user before expiring and requiring the user logs in again
@@ -25,15 +35,6 @@ app.use(passport.session());
 // PORT dynamically chosen between Heroku's assignment and the local machine port.
 
 const PORT = process.env.PORT || 5000;
-
-mongoose.connect(keys.mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-// useNewUrlParser: true,
-// useUnifiedTopology: true,
-// ^ these code snippets get rid of those pesky deprecation warnings that mongoose devs haven't gotten rid of!
 
 app.listen(PORT);
 

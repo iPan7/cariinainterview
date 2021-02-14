@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 
 // cariina color code #0E3869
@@ -16,7 +16,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   '@global': {
     ul: {
       margin: 0,
@@ -71,13 +71,15 @@ const useStyles = makeStyles((theme) => ({
     // two indexes within its tonal palette.
     // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
-}));
+});
 
 
 
-export const Header = () => {
-  const classes = useStyles();
-
+// export const Header = () => {
+//   const classes = useStyles();
+class Header extends Component {
+    render() {
+        const { classes } = this.props;
   return (
     <ThemeProvider theme={theme}>
     <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
@@ -99,4 +101,7 @@ export const Header = () => {
         </Toolbar>
       </AppBar>
       </ThemeProvider>)
+    }
 };
+
+export default withStyles(styles)(Header);
