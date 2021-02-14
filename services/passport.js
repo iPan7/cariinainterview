@@ -15,10 +15,9 @@ passport.serializeUser((user, done) => {
 
 // deserialize is for when the user logs out.
 passport.deserializeUser((id, done) => {
-    User.findById(id)
-        .then(user => {
-            done(null, user);
-        });
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
 });
 
 passport.use(
@@ -27,26 +26,24 @@ passport.use(
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback",
-      proxy: true
+      proxy: true,
       //the callbackURL has a domain appended by google strategy, enabling a bit more flexibility
     },
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       console.log("access token", accessToken);
       console.log("refresh token", refreshToken);
       console.log("profile", profile);
       // console logs to quickly reference login instance information
 
-      User.findOne({ googleId: profile.id }).then((existingUser) => {
-        if (existingUser) {
-          // checks to see if the user already exists or not
-          done(null, existingUser);
-        } else {
-          new User({ googleId: profile.id })
-            .save()
-            .then((user) => done(null, user));
-          // saves a new user to the 'users' collection
-        }
-      });
+      const existingUser = await User.findOne({ googleId: profile.id });
+
+      if (existingUser) {
+        // checks to see if the user already exists or not
+        return done(null, existingUser);
+      }
+      const user = await new User({ googleId: profile.id }).save();
+      done(null, user);
+      // saves a new user to the 'users' collection
     }
   )
 );
