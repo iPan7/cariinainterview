@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const Header = () => <h2>Header</h2>;
-const Dashboard = () => <h2>Dashboard</h2>;
-const FormNew = () => <h2>FormNew</h2>;
+import { Header } from './Header';
+import { Form } from './Form';
+
+const Dashboard = () => <h2>Dashboard Placeholder</h2>;
 const Landing = () => <h2>Landing</h2>;
 
 const App = () => {
@@ -13,8 +14,8 @@ const App = () => {
         <div>
             <Route path="/" component={Header} />
             <Route exact path="/" component={Landing} />
-            <Route path="/forms" component={Dashboard} />
-            <Route path="/forms/new" component={FormNew} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Form} />
 
         </div>
       </BrowserRouter>
