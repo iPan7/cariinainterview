@@ -12,11 +12,16 @@ module.exports = app => {
 
   // scope can be used to pull more pieces of information from google. Makes this easily expandable if you add additional parameters for the scope
 
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get("/auth/google/callback",
+  passport.authenticate("google"),
+  (req, res) => {
+      res.redirect('/dashboard');
+  }
+  );
 
   app.get("/api/logout", (req,res) => {
     req.logout();
-    res.send(req.user);
+    res.redirect('/');
   });
 
   app.get("/api/current_user", (req, res) => {

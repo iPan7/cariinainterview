@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
+import {compose} from 'redux';
+import cariinalogo from './cariinalogo.svg';
 
 // cariina color code #0E3869
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -78,6 +81,18 @@ const styles = (theme) => ({
 // export const Header = () => {
 //   const classes = useStyles();
 class Header extends Component {
+    renderContent() {
+        switch (this.props.auth){
+            case null:
+                return 'App is processing';
+            case false:
+                return <div><a href="/auth/google">Login with Google</a></div>;
+            default:
+                return <div><a href="/api/logout">Logout</a></div>;
+        }
+    }
+// Handles what you see in the Navbar, depending on if you are logged in.
+
     render() {
         const { classes } = this.props;
   return (
@@ -85,18 +100,18 @@ class Header extends Component {
     <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
         <Toolbar  className={classes.toolbar}>
           <Typography id="title" component={Link} to={'/'} variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            CARIINA FORMS
+          <img src={cariinalogo} alt="cariina logo" />
           </Typography>
           <nav>
-          <Button id="login" component={Link} to={'/auth/google'} variant="h6 button" color="textPrimary" href="#" className={classes.link}>
-              LOGIN
+            <Button className={classes.link}>
+            {this.renderContent()}
             </Button>
-            <Button id="dashboard" component={Link} to={'/dashboard'} variant="h6 button" color="textPrimary" href="#" className={classes.link}>
+            {/* <Button id="dashboard" component={Link} to={'/dashboard'} href="#" className={classes.link}>
               DASHBOARD
             </Button>
-            <Button id="newform" component={Link} to={'/forms/new'} variant="h6 button" color="textPrimary" href="#" className={classes.link}>
+            <Button id="newform" component={Link} to={'/forms/new'} href="#" className={classes.link}>
               CREATE NEW FORM
-            </Button>
+            </Button> */}
           </nav>
         </Toolbar>
       </AppBar>
@@ -104,4 +119,16 @@ class Header extends Component {
     }
 };
 
-export default withStyles(styles)(Header);
+function mapStateToProps({ auth }) {
+    return { auth };
+}
+// Trying to export both of these
+// export function withStyles(styles)
+// export function connect(mapStateToProps)
+
+export default compose(
+      withStyles(styles),
+      connect(mapStateToProps)
+    )(Header);
+
+// Syntax above Allows for multiple functions to be exported from this react component
