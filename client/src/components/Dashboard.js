@@ -12,9 +12,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+import CopyLink from '@material-ui/core/Link';
 import cariinalogo from './cariinalogo.svg';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {Link} from 'react-router-dom';
 
 const WhiteTextTypography = withStyles({
   root: {
@@ -34,9 +35,9 @@ function Copyright() {
   return (
     <WhiteTextTypography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://www.cariina.com/">
+      <CopyLink color="inherit" href="https://www.cariina.com/">
         Cariina
-      </Link>{' '}
+      </CopyLink>{' '}
       {new Date().getFullYear()}
       {''}
     </WhiteTextTypography>
@@ -106,7 +107,7 @@ render() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
+                  <Button component={Link} to={'/forms/new'} variant="contained">
                     Create New Form
                   </Button>
                 </Grid>

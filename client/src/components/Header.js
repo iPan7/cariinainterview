@@ -8,9 +8,14 @@ import { withStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 import {compose} from 'redux';
 import cariinalogo from './cariinalogo.svg';
-
-// cariina color code #0E3869
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+const WhiteTextTypography = withStyles({
+    root: {
+      color: "#FFFFFF"
+    }
+  })(Typography);  
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -41,6 +46,7 @@ const styles = (theme) => ({
   link: {
     margin: theme.spacing(1, 1.5),
     color: 'white',
+    textDecoration: 'none'
   },
   heroContent: {
     padding: theme.spacing(8, 0, 6),
@@ -48,6 +54,9 @@ const styles = (theme) => ({
   cardHeader: {
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
+  },
+  loginColor: {
+    color: 'white'
   },
   footer: {
     borderTop: `1px solid ${theme.palette.divider}`,
@@ -103,9 +112,9 @@ class Header extends Component {
           <img src={cariinalogo} alt="cariina logo" />
           </Typography>
           <nav>
-            <Button className={classes.link}>
+            <WhiteTextTypography className={classes.link}>
             {this.renderContent()}
-            </Button>
+            </WhiteTextTypography>
           </nav>
         </Toolbar>
       </AppBar>

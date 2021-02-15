@@ -6,6 +6,8 @@ import * as actions from '../actions';
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
+import FormNew from "./FormNew";
+
 import { Form } from "./Form";
 import { CardActions } from "@material-ui/core";
 
@@ -22,6 +24,7 @@ class App extends Component {
             <Route path="/" component={Header} />
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/forms/new" component={FormNew} />
             {/* <Route path="/dashboard" component={Form} /> */}
           </div>
         </BrowserRouter>
