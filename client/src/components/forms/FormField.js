@@ -1,10 +1,12 @@
 //FormField contains logic to render a single label and text input
 
-import React, { Component } from 'react';
+import React from 'react';
 
-export default ({ input }) => {
+export default ({ input, label }) => {
     return (
         <div>
+            <label>{label}</label>
+            <br></br>
             <input {...input}/>
         </div>
     );

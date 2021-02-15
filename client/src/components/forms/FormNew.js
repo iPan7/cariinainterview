@@ -6,9 +6,9 @@ import FormForm from './FormForm';
 class FormNew extends Component {
     render() {
     return (
-        <h1>
+        <div>
             <FormForm />
-        </h1>
+        </div>
     );
    }
 };
