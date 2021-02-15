@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import {compose} from 'redux';
 import cariinalogo from './cariinalogo.svg';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import './logincolor.css';
 
 const WhiteTextTypography = withStyles({
     root: {
@@ -42,6 +43,7 @@ const styles = (theme) => ({
     fontSize: 35,
     flexGrow: 1,
     margin: theme.spacing(1, 1.5),
+    color: 'white'
   },
   link: {
     margin: theme.spacing(1, 1.5),
@@ -95,9 +97,9 @@ class Header extends Component {
             case null:
                 return 'App is processing';
             case false:
-                return <div><a href="/auth/google">Login with Google</a></div>;
+                return <div><a href="/auth/google" className="logincolor">Login with Google</a></div>;
             default:
-                return <div><a href="/api/logout">Logout</a></div>;
+                return <div><a href="/api/logout" className="logincolor">Logout</a></div>;
         }
     }
 // Handles what you see in the Navbar, depending on if you are logged in.
