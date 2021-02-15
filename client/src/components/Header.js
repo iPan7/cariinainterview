@@ -136,4 +136,4 @@ export default compose(
       connect(mapStateToProps)
     )(Header);
 
-// Syntax above Allows for multiple functions to be exported from this react component
+// Syntax above allows for multiple functions to be exported from this react component

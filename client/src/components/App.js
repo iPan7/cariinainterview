@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
-import FormNew from "./FormNew";
-
+import FormNew from "./forms/FormNew";
 import { Form } from "./Form";
 import { CardActions } from "@material-ui/core";
 
