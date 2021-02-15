@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys =require('./config/keys')
 require('./models/User');
+require('./models/Form');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, {
@@ -30,7 +31,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-(require('./routes/authRoutes')(app));
+require('./routes/authRoutes')(app);
+require('./routes/formRoutes')(app);
+
 
 
 // To send production build to heroku
