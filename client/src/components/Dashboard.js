@@ -14,8 +14,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import cariinalogo from './cariinalogo.svg';
-
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+const WhiteTextTypography = withStyles({
+  root: {
+    color: "#FFFFFF"
+  }
+})(Typography);
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -26,14 +32,14 @@ const theme = createMuiTheme({
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <WhiteTextTypography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://www.cariina.com/">
         Cariina
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+      {''}
+    </WhiteTextTypography>
   );
 }
 
@@ -144,9 +150,9 @@ render() {
         <Typography align="center" gutterBottom>
         <img src={cariinalogo} alt="cariina logo" />
         </Typography>
-        <Typography className={classes.whitetext} variant="subtitle1" align="center" color="textPrimary" component="p">
+        <WhiteTextTypography variant="subtitle1" align="center" color="textPrimary" component="p">
         A suite of integrated school operations tools, helping administrators organize transportation, events, and extracurriculars
-        </Typography>
+        </WhiteTextTypography>
         <Copyright />
       </footer>
       {/* End footer */}
