@@ -99,19 +99,13 @@ class Header extends Component {
     <ThemeProvider theme={theme}>
     <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
         <Toolbar  className={classes.toolbar}>
-          <Typography id="title" component={Link} to={'/'} variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          <Typography component={Link} to={this.props.auth ? '/dashboard' : '/'} className={classes.toolbarTitle}>
           <img src={cariinalogo} alt="cariina logo" />
           </Typography>
           <nav>
             <Button className={classes.link}>
             {this.renderContent()}
             </Button>
-            {/* <Button id="dashboard" component={Link} to={'/dashboard'} href="#" className={classes.link}>
-              DASHBOARD
-            </Button>
-            <Button id="newform" component={Link} to={'/forms/new'} href="#" className={classes.link}>
-              CREATE NEW FORM
-            </Button> */}
           </nav>
         </Toolbar>
       </AppBar>

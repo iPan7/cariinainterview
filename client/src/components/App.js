@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from "./Header";
+import Landing from "./Landing";
 import { Form } from "./Form";
 import { CardActions } from "@material-ui/core";
 
 const Dashboard = () => <h2>Dashboard Placeholder</h2>;
-const Landing = () => <h2>Landing</h2>;
 
 class App extends Component {
   componentDidMount() {
