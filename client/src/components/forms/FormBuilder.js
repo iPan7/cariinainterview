@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,6 +10,7 @@ import cariinalogo from "../cariinalogo.svg";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Pdf from "react-to-pdf";
+import Draggable, {DraggableCore} from 'react-draggable';
 const ref = React.createRef();
 
 const WhiteTextTypography = withStyles({
@@ -119,6 +112,12 @@ class FormBuilder extends Component {
     this.setState({newtext: this.state.newtext})
   }
 
+  handleSubmit(e){
+
+    console.log(this.state, "$$$$")
+
+  }
+
 
 
   render() {
@@ -130,13 +129,17 @@ class FormBuilder extends Component {
           <main>
             <div className={classes.heroContent}>
               <Container maxWidth="lg">
+
                 {/* This box is where the form is being built inside. */}
                 <Box ref={ref}>
                   Testing page to see if it saves PDF
+{/* The holy grail of inputtable component added dynamically below. */}
+
+
                   {
   this.state.newtext.map((text, index)=>{
     return (
-      <div key={index}>
+      <Draggable><div key={index}>
         <input onChange={(e)=>this.handleChange(e, index)}
         value={text} />
 
@@ -149,10 +152,13 @@ class FormBuilder extends Component {
                   >
                     Remove Text
                   </Button>
-      </div>
+      </div></Draggable>
     )
   })
 }
+
+{/* The holy grail of inputtable component added dynamically above. */}
+
                 </Box>
                 <Typography
                   component="h1"
@@ -181,6 +187,7 @@ class FormBuilder extends Component {
                     Cancel
                   </Button>
                   <Button
+                    onClick={(e) => this.handleSubmit(e)}
                     type="submit"
                     variant="contained"
                     className={classes.button}
