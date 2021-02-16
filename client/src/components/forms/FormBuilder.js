@@ -109,6 +109,18 @@ class FormBuilder extends Component {
     this.setState({newtext: this.state.newtext})
   }
 
+  handleRemove(index){
+    //remove an item at the index
+    this.state.newtext.splice(index,1)
+
+    console.log(this.state.newtext, "$$$$");
+
+    //update the state
+    this.setState({newtext: this.state.newtext})
+  }
+
+
+
   render() {
     const { classes } = this.props;
     return (
@@ -116,9 +128,9 @@ class FormBuilder extends Component {
         <React.Fragment>
           <CssBaseline />
           <main>
-            {/* Hero unit */}
             <div className={classes.heroContent}>
               <Container maxWidth="lg">
+                {/* This box is where the form is being built inside. */}
                 <Box ref={ref}>
                   Testing page to see if it saves PDF
                   {
@@ -127,6 +139,16 @@ class FormBuilder extends Component {
       <div key={index}>
         <input onChange={(e)=>this.handleChange(e, index)}
         value={text} />
+
+                  <Button
+                  onClick={() => this.handleRemove(index)}
+                    type="submit"
+                    variant="contained"
+                    className={classes.button}
+                    color="secondary"
+                  >
+                    Remove Text
+                  </Button>
       </div>
     )
   })
@@ -147,14 +169,6 @@ class FormBuilder extends Component {
                     color="primary"
                   >
                     Add Text
-                  </Button>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    className={classes.button}
-                    color="primary"
-                  >
-                    Add Fillable Field
                   </Button>
                   <Button
                     component={Link}
