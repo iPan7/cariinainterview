@@ -114,9 +114,9 @@ class Header extends Component {
           <img src={cariinalogo} alt="cariina logo" />
           </Typography>
           <nav>
-            <WhiteTextTypography className={classes.link}>
+            <Button className={classes.link}>
             {this.renderContent()}
-            </WhiteTextTypography>
+            </Button>
           </nav>
         </Toolbar>
       </AppBar>
@@ -132,8 +132,8 @@ function mapStateToProps({ auth }) {
 // export function connect(mapStateToProps)
 
 export default compose(
-      withStyles(styles),
-      connect(mapStateToProps)
+      withStyles(styles),
+      connect(mapStateToProps)
     )(Header);
 
 // Syntax above allows for multiple functions to be exported from this react component
