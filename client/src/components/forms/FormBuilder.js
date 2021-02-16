@@ -86,6 +86,60 @@ const styles = (theme) => ({
 class FormBuilder extends Component {
 
   state = {
+    activeDrags: 0,
+    deltaPosition: {
+      x: 0, y: 0
+    },
+    controlledPosition: {
+      x: -400, y: 200
+    }
+  };
+
+  handleDrag = (e, ui) => {
+    const {x, y} = this.state.deltaPosition;
+    this.setState({
+      deltaPosition: {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY,
+      }
+    });
+  };
+
+  onStart = () => {
+    this.setState({activeDrags: ++this.state.activeDrags});
+  };
+
+  onStop = () => {
+    this.setState({activeDrags: --this.state.activeDrags});
+  };
+
+  // For controlled component
+  adjustXPos = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const {x, y} = this.state.controlledPosition;
+    this.setState({controlledPosition: {x: x - 10, y}});
+  };
+
+  adjustYPos = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const {controlledPosition} = this.state;
+    const {x, y} = controlledPosition;
+    this.setState({controlledPosition: {x, y: y - 10}});
+  };
+
+  onControlledDrag = (e, position) => {
+    const {x, y} = position;
+    this.setState({controlledPosition: {x, y}});
+  };
+
+  onControlledDragStop = (e, position) => {
+    this.onControlledDrag(e, position);
+    this.onStop();
+  };
+
+  state = {
     newtext:[]
   }
 
@@ -121,6 +175,8 @@ class FormBuilder extends Component {
 
 
   render() {
+    const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
+    const {deltaPosition, controlledPosition} = this.state;
     const { classes } = this.props;
     return (
       <ThemeProvider theme={theme}>
@@ -129,20 +185,19 @@ class FormBuilder extends Component {
           <main>
             <div className={classes.heroContent}>
               <Container maxWidth="lg">
-
-                {/* This box is where the form is being built inside. */}
+{/* This box is where the form is being built inside. */}
                 <Box ref={ref}>
                   Testing page to see if it saves PDF
 {/* The holy grail of inputtable component added dynamically below. */}
-
-
                   {
   this.state.newtext.map((text, index)=>{
     return (
-      <Draggable><div key={index}>
+      <Draggable cancel="strong" {...dragHandlers}>
+        <div key={index}>
+          <strong>
         <input onChange={(e)=>this.handleChange(e, index)}
         value={text} />
-
+        </strong>
                   <Button
                   onClick={() => this.handleRemove(index)}
                     type="submit"
