@@ -257,7 +257,15 @@ class FormBuilder extends Component {
                   >
                     Cancel
                   </Button>
-                  <Pdf targetRef={ref} filename="SchoolForm.pdf">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    className={classes.button}
+                    color="primary"
+                  >
+                    Save
+                  </Button>
+                  {/* <Pdf targetRef={ref} filename="SchoolForm.pdf">
                     {({ toPdf }) => (
                       <Button
                         className={classes.button}
@@ -267,7 +275,7 @@ class FormBuilder extends Component {
                         Generate Pdf
                       </Button>
                     )}
-                  </Pdf>
+                  </Pdf> */}
                 </Typography>
               </Container>
             </div>

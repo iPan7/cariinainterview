@@ -35,6 +35,7 @@ const styles = (theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
+    marginBottom: theme.spacing(5),
   },
   toolbar: {
     flexWrap: 'wrap',
