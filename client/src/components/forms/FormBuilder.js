@@ -45,6 +45,79 @@ function Copyright() {
   );
 }
 
+const items = [{
+    key: "Header",
+    name: "Header Text",
+    static: !0,
+    content: "Placeholder Text...",
+  },
+  {
+    key: "Paragraph",
+    name: "Paragraph",
+    static: !0,
+    content: "Placeholder Text...",
+  },
+  {
+    key: "Checkboxes",
+    canHaveAnswer: !0,
+    name: "Checkboxes",
+    icon: "fa fa-check-square-o",
+    label: "Placeholder Label",
+    field_name: "checkboxes_",
+    options: [],
+  },
+  {
+    key: "RadioButtons",
+    canHaveAnswer: !0,
+    name: "Multiple Choice",
+    icon: "fa fa-dot-circle-o",
+    label: "Placeholder Label",
+    field_name: "radiobuttons_",
+    options: [],
+  },
+  {
+    key: "TextInput",
+    canHaveAnswer: !0,
+    name: "Single Line Text Input",
+    label: "Placeholder Label",
+    field_name: "text_input_",
+  },
+  {
+    key: "NumberInput",
+    canHaveAnswer: !0,
+    name: "Number Input",
+    label: "Placeholder Label",
+    field_name: "number_input_",
+  },
+  {
+    key: "TextArea",
+    canHaveAnswer: !0,
+    name: "Multi Line Text Input",
+    label: "Placeholder Label",
+    field_name: "text_area_",
+  },
+  {
+    key: "Image",
+    name: "Image",
+    label: "",
+    field_name: "image_",
+    src: "",
+  },
+  {
+    key: "DatePicker",
+    canDefaultToday: !0,
+    canReadOnly: !0,
+    dateFormat: "MM/dd/yyyy",
+    timeFormat: "hh:mm aa",
+    showTimeSelect: !1,
+    showTimeSelectOnly: !1,
+    name: "Date/Time",
+    label: "Placeholder Label",
+    field_name: "date_picker_",
+  },
+];
+
+
 const styles = (theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -149,65 +222,6 @@ class FormBuilder extends Component {
     this.onStop();
   };
 
-  // Code for adding element dynamically below
-
-  state = {
-    newtext: [],
-    newmultitext: [],
-  };
-
-  addText() {
-    this.setState({ newtext: [...this.state.newtext, ""] });
-  }
-
-  handleChange(e, index) {
-    this.state.newtext[index] = e.target.value;
-
-    // set the changed state
-    this.setState({ newtext: this.state.newtext });
-  }
-
-  handleRemove(index) {
-    //remove an item at the index
-    this.state.newtext.splice(index, 1);
-
-    console.log(this.state.newtext, "$$$$");
-
-    //update the state
-    this.setState({ newtext: this.state.newtext });
-  }
-
-  handleSubmit(e) {
-    console.log(this.state, "$$$$");
-  }
-
-  // Code for adding an element dyamically above
-
-  // state = {
-  //   newmultitext: [],
-  // };
-
-  // addmultiText() {
-  //   this.setState({ newtext: [...this.state.newmultitext, ""] });
-  // }
-
-  // handlemultiChange(e, index) {
-  //   this.state.newmultitext[index] = e.target.value;
-
-  //   // set the changed state
-  //   this.setState({ newmultitext: this.state.newmultitext });
-  // }
-
-  // handlemultiRemove(index) {
-  //   //remove an item at the index
-  //   this.state.newmultitext.splice(index, 1);
-
-  //   console.log(this.state.newmultitext, "$$$$");
-
-  //   //update the state
-  //   this.setState({ newtext: this.state.newmultitext });
-  // }
-
   render() {
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
     const { deltaPosition, controlledPosition } = this.state;
@@ -220,7 +234,11 @@ class FormBuilder extends Component {
             <div>
               <Container maxWidth="lg">
                 <Box className={classes.page} ref={ref}>
-                  <ReactFormBuilder />,
+                  <ReactFormBuilder
+                    url='path/to/GET/initial.json'
+                    toolbarItems={items}
+                    saveUrl='path/to/POST/built/form.json' 
+                   />,
                 </Box>
                 <Typography
                   component="h1"
