@@ -6,11 +6,16 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CopyLink from "@material-ui/core/Link";
+import TextField from "@material-ui/core/TextField";
 import cariinalogo from "../cariinalogo.svg";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Pdf from "react-to-pdf";
-import Draggable, {DraggableCore} from 'react-draggable';
+import Draggable, { DraggableCore } from "react-draggable";
+import { ReactFormBuilder } from "react-form-builder2";
+import "react-form-builder2/dist/app.css";
+import jquery from "jquery";
+
 const ref = React.createRef();
 
 const WhiteTextTypography = withStyles({
@@ -80,58 +85,63 @@ const styles = (theme) => ({
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
+    page: {
+      fontSize: 12,
+      height: 200 /* You'll need to play with this value */,
+    },
   },
 });
 
 class FormBuilder extends Component {
-
   state = {
     activeDrags: 0,
     deltaPosition: {
-      x: 0, y: 0
+      x: 0,
+      y: 0,
     },
     controlledPosition: {
-      x: -400, y: 200
-    }
+      x: -400,
+      y: 200,
+    },
   };
 
   handleDrag = (e, ui) => {
-    const {x, y} = this.state.deltaPosition;
+    const { x, y } = this.state.deltaPosition;
     this.setState({
       deltaPosition: {
         x: x + ui.deltaX,
         y: y + ui.deltaY,
-      }
+      },
     });
   };
 
   onStart = () => {
-    this.setState({activeDrags: ++this.state.activeDrags});
+    this.setState({ activeDrags: ++this.state.activeDrags });
   };
 
   onStop = () => {
-    this.setState({activeDrags: --this.state.activeDrags});
+    this.setState({ activeDrags: --this.state.activeDrags });
   };
 
   // For controlled component
   adjustXPos = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const {x, y} = this.state.controlledPosition;
-    this.setState({controlledPosition: {x: x - 10, y}});
+    const { x, y } = this.state.controlledPosition;
+    this.setState({ controlledPosition: { x: x - 10, y } });
   };
 
   adjustYPos = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const {controlledPosition} = this.state;
-    const {x, y} = controlledPosition;
-    this.setState({controlledPosition: {x, y: y - 10}});
+    const { controlledPosition } = this.state;
+    const { x, y } = controlledPosition;
+    this.setState({ controlledPosition: { x, y: y - 10 } });
   };
 
   onControlledDrag = (e, position) => {
-    const {x, y} = position;
-    this.setState({controlledPosition: {x, y}});
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
   };
 
   onControlledDragStop = (e, position) => {
@@ -139,81 +149,78 @@ class FormBuilder extends Component {
     this.onStop();
   };
 
+  // Code for adding element dynamically below
+
   state = {
-    newtext:[]
+    newtext: [],
+    newmultitext: [],
+  };
+
+  addText() {
+    this.setState({ newtext: [...this.state.newtext, ""] });
   }
 
-  addText(){
-
-    this.setState({newtext: [...this.state.newtext, "" ]})
-
-  }
-
-  handleChange(e, index){
-    this.state.newtext[index] = e.target.value
+  handleChange(e, index) {
+    this.state.newtext[index] = e.target.value;
 
     // set the changed state
-    this.setState({newtext: this.state.newtext})
+    this.setState({ newtext: this.state.newtext });
   }
 
-  handleRemove(index){
+  handleRemove(index) {
     //remove an item at the index
-    this.state.newtext.splice(index,1)
+    this.state.newtext.splice(index, 1);
 
     console.log(this.state.newtext, "$$$$");
 
     //update the state
-    this.setState({newtext: this.state.newtext})
+    this.setState({ newtext: this.state.newtext });
   }
 
-  handleSubmit(e){
-
-    console.log(this.state, "$$$$")
-
+  handleSubmit(e) {
+    console.log(this.state, "$$$$");
   }
 
+  // Code for adding an element dyamically above
 
+  // state = {
+  //   newmultitext: [],
+  // };
+
+  // addmultiText() {
+  //   this.setState({ newtext: [...this.state.newmultitext, ""] });
+  // }
+
+  // handlemultiChange(e, index) {
+  //   this.state.newmultitext[index] = e.target.value;
+
+  //   // set the changed state
+  //   this.setState({ newmultitext: this.state.newmultitext });
+  // }
+
+  // handlemultiRemove(index) {
+  //   //remove an item at the index
+  //   this.state.newmultitext.splice(index, 1);
+
+  //   console.log(this.state.newmultitext, "$$$$");
+
+  //   //update the state
+  //   this.setState({ newtext: this.state.newmultitext });
+  // }
 
   render() {
-    const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
-    const {deltaPosition, controlledPosition} = this.state;
+    const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+    const { deltaPosition, controlledPosition } = this.state;
     const { classes } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
           <main>
-            <div className={classes.heroContent}>
+            <div>
               <Container maxWidth="lg">
-{/* This box is where the form is being built inside. */}
-                <Box ref={ref}>
-                  Testing page to see if it saves PDF
-{/* The holy grail of inputtable component added dynamically below. */}
-                  {
-  this.state.newtext.map((text, index)=>{
-    return (
-      <Draggable cancel="strong" {...dragHandlers}>
-        <div key={index}>
-          <strong>
-        <input onChange={(e)=>this.handleChange(e, index)}
-        value={text} />
-        </strong>
-                  <Button
-                  onClick={() => this.handleRemove(index)}
-                    type="submit"
-                    variant="contained"
-                    className={classes.button}
-                    color="secondary"
-                  >
-                    Remove Text
-                  </Button>
-      </div></Draggable>
-    )
-  })
-}
-
-{/* The holy grail of inputtable component added dynamically above. */}
-
+                <Box className={classes.page} ref={ref}>
+                  <ReactFormBuilder />,
                 </Box>
                 <Typography
                   component="h1"
@@ -223,15 +230,6 @@ class FormBuilder extends Component {
                   gutterBottom
                 >
                   <Button
-                    onClick={(e) => this.addText(e)}
-                    type="submit"
-                    variant="contained"
-                    className={classes.button}
-                    color="primary"
-                  >
-                    Add Text
-                  </Button>
-                  <Button
                     component={Link}
                     to="/dashboard"
                     type="submit"
@@ -240,15 +238,6 @@ class FormBuilder extends Component {
                     color="secondary"
                   >
                     Cancel
-                  </Button>
-                  <Button
-                    onClick={(e) => this.handleSubmit(e)}
-                    type="submit"
-                    variant="contained"
-                    className={classes.button}
-                    color="primary"
-                  >
-                    Save
                   </Button>
                   <Pdf targetRef={ref} filename="SchoolForm.pdf">
                     {({ toPdf }) => (
