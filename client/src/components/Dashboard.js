@@ -117,7 +117,7 @@ render() {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
@@ -146,7 +146,7 @@ render() {
                 </Card>
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
         </Container>
       </main>
       {/* Footer */}

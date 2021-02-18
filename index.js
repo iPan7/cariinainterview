@@ -40,7 +40,7 @@ require('./routes/formRoutes')(app);
 if (process.env.NODE_ENV === 'production') {
     // Express will serve up production assets
     app.use(express.static('client/build'));
-    // Express will serve up the index.html file if routee isn't recognized
+    // Express will serve up the index.html file if route isn't recognized
     const path = require('path');
     app.get('*', (req,res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))

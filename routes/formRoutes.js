@@ -7,6 +7,7 @@ const Form = mongoose.model('forms');
 
 module.exports = app => {
     
+    // create a new form
     app.post('/api/forms', requireLogin, (req,res) => {
         const { title, subject, body, recipients} = req.body;
 

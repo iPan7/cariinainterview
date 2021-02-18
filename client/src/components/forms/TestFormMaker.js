@@ -91,8 +91,6 @@
 //   }
 // }
 import React, { Component, createRef } from 'react';
-// import { Container } from 'reactstrap';
-// import { addForm } from '../actions/formActions';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
@@ -133,24 +131,11 @@ class TestFormMaker extends Component {
     componentDidMount() {
         $(this.fb.current).formBuilder(this.options);
     }
-
-    // static propTypes = {
-    //     form: PropTypes.object.isRequired,
-    //     isAuthenticated: PropTypes.bool
-    // };
-
     render() {
         return (
-            // <Container className="mb-5">
                 <div id="fb-editor" className="form" ref={this.fb} />
-            // </Container>
         );
     }
 }
-
-// const mapStateToProps = state => ({
-//     form: state.form,
-//     isAuthenticated: state.auth.isAuthenticated
-// });
 
 export default TestFormMaker;
