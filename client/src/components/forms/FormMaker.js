@@ -16,13 +16,33 @@ import Draggable, { DraggableCore } from "react-draggable";
 import { ReactFormBuilder } from "react-form-builder2";
 import "react-form-builder2/dist/app.css";
 import { ReactFormGenerator } from 'react-form-builder2';
-import jquery from "jquery";
+import $ from "jquery";
 import axios from 'axios';
 import {FormBuilder} from 'react-formio';
 import {FormEdit} from 'react-formio';
 
+window.jQuery = $;
+window.$ = $;
+
+require("jquery-ui-sortable");
+require("formBuilder");
+
+const formData = [
+  {
+    type: "header",
+    subtype: "h1",
+    label: "formBuilder in React"
+  },
+  {
+    type: "paragraph",
+    label: "This is a demonstration of formBuilder running in a React project."
+  }
+];
 
 const ref = React.createRef();
+
+const previewButton = document.getElementsByClassName('btn-dark')
+console.log(previewButton)
 
 const WhiteTextTypography = withStyles({
   root: {
