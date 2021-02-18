@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from "@material-ui/core/Box";
@@ -14,7 +15,12 @@ import Pdf from "react-to-pdf";
 import Draggable, { DraggableCore } from "react-draggable";
 import { ReactFormBuilder } from "react-form-builder2";
 import "react-form-builder2/dist/app.css";
+import { ReactFormGenerator } from 'react-form-builder2';
 import jquery from "jquery";
+import axios from 'axios';
+import {FormBuilder} from 'react-formio';
+import {FormEdit} from 'react-formio';
+
 
 const ref = React.createRef();
 
@@ -165,7 +171,7 @@ const styles = (theme) => ({
   },
 });
 
-class FormBuilder extends Component {
+class FormMaker extends Component {
   state = {
     activeDrags: 0,
     deltaPosition: {
@@ -234,11 +240,36 @@ class FormBuilder extends Component {
             <div>
               <Container maxWidth="lg">
                 <Box className={classes.page} ref={ref}>
-                  <ReactFormBuilder
+                <FormBuilder
+        options={{
+          builder: {
+            layout: false,
+            premium: false,
+            basic: {
+              default: true,
+              components: {
+                password: false,
+                radio: false,
+                button: false
+              }
+            },
+            advanced: {
+              default: true,
+              components: {
+                signature: false
+              }
+            },
+            data: false
+          }
+        }}
+        form={{ display: "form" }}
+        onChange={schema => console.log(schema)}
+      />
+                  {/* <ReactFormBuilder
                     url='path/to/GET/initial.json'
                     toolbarItems={items}
                     saveUrl='path/to/POST/built/form.json' 
-                   />,
+                   /> */}
                 </Box>
                 <Typography
                   component="h1"
@@ -263,7 +294,7 @@ class FormBuilder extends Component {
                     className={classes.button}
                     color="primary"
                   >
-                    Save
+                    Preview
                   </Button>
                   {/* <Pdf targetRef={ref} filename="SchoolForm.pdf">
                     {({ toPdf }) => (
@@ -302,6 +333,16 @@ class FormBuilder extends Component {
       </ThemeProvider>
     );
   }
+  save(form){
+    // you will receive form
+    console.log(form);
 }
 
-export default withStyles(styles)(FormBuilder);
+updateForm(callback){
+    // fetch form and set it to callback
+    let form = axios
+    callback(form)
+}
+}
+
+export default withStyles(styles)(FormMaker);

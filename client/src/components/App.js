@@ -5,7 +5,8 @@ import * as actions from '../actions';
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
-import FormNav from "./forms/FormBuilder";
+import FormMaker from "./forms/FormMaker";
+import Test from "./forms/Test";
 
 class App extends Component {
   componentDidMount() {
@@ -20,7 +21,7 @@ class App extends Component {
             <Route path="/" component={Header} />
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/forms/new" component={FormNav} />
+            <Route path="/forms/new" component={Test} />
           </div>
         </BrowserRouter>
       </div>

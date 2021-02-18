@@ -6,6 +6,7 @@ const formTemplate = require('../services/emailTemplates/formTemplate');
 const Form = mongoose.model('forms');
 
 module.exports = app => {
+    
     app.post('/api/forms', requireLogin, (req,res) => {
         const { title, subject, body, recipients} = req.body;
 
