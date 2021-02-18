@@ -117,7 +117,7 @@ class Test extends Component {
                 label: 'Test Form 1'
             }
         ],
-        onSave: (formData) => {   //Auto binds `this`
+        onSave: (event, formData) => {   //Auto binds `this`
         // const newForm = {
         //     name: this.state.name,
         //     form: formData
