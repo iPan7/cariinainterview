@@ -103,7 +103,7 @@ window.$ = $;
 require('jquery-ui-sortable');
 require('formBuilder');
 
-class Test extends Component {
+class TestFormMaker extends Component {
     state = {
         name: '',
         data: []
@@ -153,4 +153,4 @@ class Test extends Component {
 //     isAuthenticated: state.auth.isAuthenticated
 // });
 
-export default Test;
+export default TestFormMaker;
