@@ -94,12 +94,26 @@ import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import array from 'mongoose/lib/types/array';
 
 window.jQuery = $;
 window.$ = $;
 
 require('jquery-ui-sortable');
 require('formBuilder');
+
+const saveForm = async (formData) => {
+    try {
+        await axios.post('/api/forms', formData)
+    } catch (err) {
+        console.log(err)
+    }
+} 
+// same as below
+// async function saveForm(formData) {
+//   await axios.post('/api/forms', formData)  
+// }
 
 class TestFormMaker extends Component {
     state = {
@@ -116,15 +130,13 @@ class TestFormMaker extends Component {
             }
         ],
         onSave: (event, formData) => {   //Auto binds `this`
-        // const newForm = {
-        //     name: this.state.name,
-        //     form: formData
-        // };
+        
+        saveForm({questions: formData});
 
-        // Add form via addForm action
-        // this.props.addForm(newForm);
-        console.log(formData);
-    }
+            // Add form via addForm action
+            // this.props.addForm(newForm);
+            // console.log(formData);
+        }
     };
 
     fb = createRef();

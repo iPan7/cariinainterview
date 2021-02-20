@@ -4,7 +4,10 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys =require('./config/keys')
 require('./models/User');
+require('./models/Survey');
 require('./models/Form');
+require('./models/Question');
+require('./models/Values');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, {
@@ -30,9 +33,12 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 require('./routes/authRoutes')(app);
+require('./routes/surveyRoutes')(app);
 require('./routes/formRoutes')(app);
+
 
 
 

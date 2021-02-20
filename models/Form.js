@@ -1,18 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const { Schema } = mongoose;
-const RecipientSchema = require('./Recipient');
-// RecipientSchema is a subdocument collection of this schema
-
+const questionSchema = require('./Question')
 const formSchema = new Schema({
-    title: String,
-    body: String,
-    subject: String,
-    recipients: [RecipientSchema],
-    yes: { type: Number, default: 0},
-    no: { type: Number, default: 0},
-    _user: { type: Schema.Types.ObjectId, ref: 'User' },
-    dateSent: Date,
-    lastResponded: Date
+  questions: [questionSchema],
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
 });
-
-mongoose.model('forms', formSchema);
+const Form = mongoose.model('form', formSchema);
+module.exports = Form;

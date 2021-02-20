@@ -1,26 +1,19 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
-const Mailer = require('../services/Mailer');
-const formTemplate = require('../services/emailTemplates/formTemplate');
 
-const Form = mongoose.model('forms');
+const Form = require('../models/Form');
 
 module.exports = app => {
     
     // create a new form
-    app.post('/api/forms', requireLogin, (req,res) => {
-        const { title, subject, body, recipients} = req.body;
-
-        const form = new Form({
-            title,
-            subject,
-            body,
-            recipients: recipients.split(',').map(email => ({ email: email.trim() })), 
+    app.post('/api/forms', requireLogin, async (req,res) => {
+        const { questions } = req.body;
+        const form = await new Form({
+            questions: JSON.parse(questions),
             _user: req.user.id
         });
-
-        // Code to send out an email using the mailer
-        const mailer = new Mailer(form, formTemplate(form));
-        mailer.send();
+        console.log(form)
+        form.save();
+        res.json(form)
     });
 };
