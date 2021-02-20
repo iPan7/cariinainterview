@@ -95,7 +95,6 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import array from 'mongoose/lib/types/array';
 
 window.jQuery = $;
 window.$ = $;
