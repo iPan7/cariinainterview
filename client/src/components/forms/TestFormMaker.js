@@ -95,6 +95,7 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 window.jQuery = $;
 window.$ = $;
@@ -114,10 +115,13 @@ const saveForm = async (formData) => {
 //   await axios.post('/api/forms', formData)  
 // }
 
+// const history = useHistory();
+
 class TestFormMaker extends Component {
+    
     state = {
         name: '',
-        data: []
+        data: [],
     };
 
     options = {
@@ -130,7 +134,9 @@ class TestFormMaker extends Component {
         ],
         onSave: (event, formData) => {   //Auto binds `this`
         
-        saveForm({questions: formData});
+            saveForm({questions: formData});
+            this.props.history.push("/dashboard");
+        
 
             // Add form via addForm action
             // this.props.addForm(newForm);

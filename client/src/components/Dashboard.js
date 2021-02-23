@@ -16,6 +16,7 @@ import CopyLink from '@material-ui/core/Link';
 import cariinalogo from './cariinalogo.svg';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 const WhiteTextTypography = withStyles({
   root: {
@@ -33,7 +34,7 @@ const theme = createMuiTheme({
 
 function Copyright() {
   return (
-    <WhiteTextTypography variant="body2" color="textSecondary" align="center">
+    <WhiteTextTypography variant="body2" align="center">
       {'Copyright © '}
       <CopyLink color="inherit" href="https://www.cariina.com/">
         Cariina
@@ -89,7 +90,34 @@ const styles = (theme) => ({
 
 const cards = [1, 2, 3];
 
+const getForms = async () => {
+  try {
+      const forms = await axios.get('/api/forms');
+      return forms;
+  } catch (err) {
+      console.log(err)
+  }
+} 
+
+const deleteForm = async (_id) => {
+  try {
+    return axios.delete(`/api/forms/${_id}`)
+  } catch (err) {
+      console.log(err)
+  }
+}
+
 class Dashboard extends Component {
+
+  state = {
+    forms: [],
+};  
+
+  componentDidMount() {
+    getForms().then(({data}) => {
+      this.setState({forms: data.reverse()})
+    })
+  }
 
 render() {
     const { classes } = this.props;
@@ -101,7 +129,7 @@ render() {
         {/* Hero unit */}
         <div className={classes.heroContent} >
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="TextPrimary" gutterBottom>
+            <Typography component="h1" variant="h2" align="center" gutterBottom>
               Welcome to the Dashboard!
             </Typography>
             <div className={classes.heroButtons}>
@@ -117,13 +145,13 @@ render() {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          {/* <Grid container spacing={2}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+          <Grid container spacing={2}>
+            {this.state.forms.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={4} key={card._id}>
                 <Card className={classes.card}>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Form
+                      {card.questions[0].label}
                     </Typography>
                     <Typography>
                       This is a sample form.
@@ -139,14 +167,24 @@ render() {
                     <Button size="small" color="primary">
                       Edit
                     </Button>
-                    <Button size="small" color="primary">
+                    <Button 
+                    size="small" 
+                    color="primary" 
+                    onClick={() => {
+                      deleteForm(card._id).then(res => {
+                        getForms().then(({data}) => {
+                          this.setState({forms: data.reverse()})
+                        })
+                      })
+                    }}
+                    >
                       Delete
                     </Button>
                   </CardActions>
                 </Card>
               </Grid>
             ))}
-          </Grid> */}
+          </Grid>
         </Container>
       </main>
       {/* Footer */}
@@ -154,7 +192,7 @@ render() {
         <Typography align="center" gutterBottom>
         <img src={cariinalogo} alt="cariina logo" />
         </Typography>
-        <WhiteTextTypography variant="subtitle1" align="center" color="textPrimary" component="p">
+        <WhiteTextTypography variant="subtitle1" align="center" component="p">
         A suite of integrated school operations tools, helping administrators organize transportation, events, and extracurriculars
         </WhiteTextTypography>
         <Copyright />
