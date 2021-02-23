@@ -7,6 +7,7 @@ import Landing from "./Landing";
 import Dashboard from "./Dashboard";
 import FormMaker from "./forms/FormMaker";
 import TestFormMaker from "./forms/TestFormMaker";
+import FormEditor from "./forms/FormEditor";
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/forms/new" component={TestFormMaker} />
+            <Route path="/forms/edit/*" component={FormEditor}/>
           </div>
         </BrowserRouter>
       </div>

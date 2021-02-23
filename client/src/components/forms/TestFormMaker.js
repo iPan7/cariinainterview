@@ -137,7 +137,6 @@ class TestFormMaker extends Component {
             saveForm({questions: formData});
             this.props.history.push("/dashboard");
         
-
             // Add form via addForm action
             // this.props.addForm(newForm);
             // console.log(formData);

@@ -118,6 +118,11 @@ class Dashboard extends Component {
       this.setState({forms: data.reverse()})
     })
   }
+  componentDidUpdate() {
+    getForms().then(({data}) => {
+      this.setState({forms: data.reverse()})
+    })
+  }
 
 render() {
     const { classes } = this.props;
@@ -153,18 +158,12 @@ render() {
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.questions[0].label}
                     </Typography>
-                    <Typography>
-                      This is a sample form.
-                    </Typography>
                   </CardContent>
                   <CardActions>
                   <Button size="small" color="primary">
                       Share
                     </Button>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" component={Link} to={`/forms/edit/${card._id}`}>
                       Edit
                     </Button>
                     <Button 

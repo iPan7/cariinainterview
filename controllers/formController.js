@@ -1,9 +1,6 @@
 const requireLogin = require('../middlewares/requireLogin');
 const Form = require('../models/Form');
 
-module.exports = (_id) => {
-    return Test.findById(_id);
-}
 module.exports = {
     saveForm: (requireLogin, async (req,res) => {
         const { questions } = req.body;
@@ -21,5 +18,17 @@ module.exports = {
     deleteForm: (requireLogin, async (req, res) => {
         const { id } = req.params;
         Form.findByIdAndRemove(id).then(form => res.json(form))
+    }),
+    getFormById: (async (req, res) => {
+        const {id} = req.params;
+        Form.findOne({_id: id}).then((form => res.json(form)))
+    }),
+    editForm: (requireLogin, async (req, res) => {
+        const {id} = req.params;
+        const {questions} = req.body;
+        console.log(questions)
+        const form = await Form.findByIdAndUpdate(id, {questions: JSON.parse(questions)});
+        form.save();
+        res.json(form)
     })
 }
