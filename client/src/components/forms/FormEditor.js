@@ -48,7 +48,9 @@ const FormEditor = (props) => {
                     // Add form via addForm action
                     // this.props.addForm(newForm);
                     // console.log(formData);
-                }
+                },
+                disabledActionButtons: ['data'],
+                disableFields: ['hidden']
             };
             $(fb.current).formBuilder(options);
         })

@@ -160,8 +160,8 @@ render() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                  <Button size="small" color="primary">
-                      Share
+                  <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
+                      View
                     </Button>
                     <Button size="small" color="primary" component={Link} to={`/forms/edit/${card._id}`}>
                       Edit

@@ -129,7 +129,7 @@ class TestFormMaker extends Component {
             {
                 type: 'header',
                 subtype: 'h1',
-                label: 'Test Form 1'
+                label: 'Untitled'
             }
         ],
         onSave: (event, formData) => {   //Auto binds `this`
@@ -140,7 +140,10 @@ class TestFormMaker extends Component {
             // Add form via addForm action
             // this.props.addForm(newForm);
             // console.log(formData);
-        }
+        },
+        disabledActionButtons: ['data'],
+        disableFields: ['hidden']
+
     };
 
     fb = createRef();
