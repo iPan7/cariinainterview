@@ -6,7 +6,6 @@ import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
 import FormMaker from "./forms/FormMaker";
-import TestFormMaker from "./forms/TestFormMaker";
 import FormEditor from "./forms/FormEditor";
 import RenderedForm from "./forms/RenderedForm"
 
@@ -23,7 +22,7 @@ class App extends Component {
             <Route path="/" component={Header} />
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/forms/new" component={TestFormMaker} />
+            <Route path="/forms/new" component={FormMaker} />
             <Route path="/forms/edit/*" component={FormEditor}/>
             <Route path="/forms/view/*" component={RenderedForm}/>
           </div>
