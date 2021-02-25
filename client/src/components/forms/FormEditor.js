@@ -43,7 +43,7 @@ const FormEditor = (props) => {
                 onSave: (event, formData) => {   //Auto binds `this`
                 
                     editForm(formId, {questions: formData});
-                    props.history.push("/dashboard");
+                    props.history.push("/");
                 
                     // Add form via addForm action
                     // this.props.addForm(newForm);

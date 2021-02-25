@@ -135,7 +135,7 @@ class FormMaker extends Component {
         onSave: (event, formData) => {   //Auto binds `this`
         
             saveForm({questions: formData});
-            this.props.history.push("/dashboard");
+            this.props.history.push("/");
         
             // Add form via addForm action
             // this.props.addForm(newForm);

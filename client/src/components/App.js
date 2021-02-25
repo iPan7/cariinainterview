@@ -13,14 +13,14 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
-
+  
   render() {
     return (
       <div>
         <BrowserRouter>
           <div className="container">
             <Route path="/" component={Header} />
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" component={this.props.auth === false ? Landing : Dashboard} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/forms/new" component={FormMaker} />
             <Route path="/forms/edit/*" component={FormEditor}/>
@@ -32,4 +32,8 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions) (App);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, actions) (App);

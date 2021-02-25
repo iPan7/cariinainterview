@@ -111,7 +111,7 @@ class Header extends Component {
     <ThemeProvider theme={theme}>
     <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
         <Toolbar  className={classes.toolbar}>
-          <Typography component={Link} to={this.props.auth ? '/dashboard' : '/'} className={classes.toolbarTitle}>
+          <Typography component={Link} to={'/'} className={classes.toolbarTitle}>
           <img src={cariinalogo} alt="cariina logo" />
           </Typography>
           <nav>
