@@ -10,13 +10,26 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CopyLink from '@material-ui/core/Link';
 import cariinalogo from './cariinalogo.svg';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
 
 const WhiteTextTypography = withStyles({
   root: {
@@ -107,11 +120,29 @@ const deleteForm = async (_id) => {
   }
 }
 
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 class Dashboard extends Component {
 
   state = {
     forms: [],
-};  
+    open: false,
+  };  
+
+  handleClick = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setState({open: false});
+  };
 
   componentDidMount() {
     getForms().then(({data}) => {
@@ -133,6 +164,11 @@ render() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent} >
+          <Snackbar open={this.state.open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={this.handleClose}>
+            <Alert onClose={this.handleClose} severity="info">
+              Your link has been copied!
+            </Alert>
+          </Snackbar>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" gutterBottom>
               Welcome to the Dashboard!
@@ -160,9 +196,14 @@ render() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                  <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
+                    <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
                       View
                     </Button>
+                    <CopyToClipboard text={`${window.location.origin}/forms/view/${card._id}`}>
+                      <Button size="small" color="primary" onClick={this.handleClick}> 
+                        Copy
+                      </Button>
+                    </CopyToClipboard>
                     <Button size="small" color="primary" component={Link} to={`/forms/edit/${card._id}`}>
                       Edit
                     </Button>
