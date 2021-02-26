@@ -25,9 +25,13 @@ module.exports = {
     }),
     editForm: (requireLogin, async (req, res) => {
         const {id} = req.params;
-        const {questions} = req.body;
-        console.log(questions)
-        const form = await Form.findByIdAndUpdate(id, {questions: JSON.parse(questions)});
+        let form;
+        if (req.body.questions) {
+            form = await Form.findByIdAndUpdate(id, {questions: JSON.parse(req.body.questions)});
+        }
+        if (req.body.private === true || req.body.private === false) {
+            form = await Form.findByIdAndUpdate(id, {private: req.body.private});
+        }
         form.save();
         res.json(form)
     })

@@ -96,7 +96,8 @@ class Header extends Component {
     renderContent() {
         switch (this.props.auth){
             case null:
-                return 'App is processing';
+                return ' ';
+                // App is loading
             case false:
                 return <div><a href="/auth/google" className="logincolor">Login with Google</a></div>;
             default:

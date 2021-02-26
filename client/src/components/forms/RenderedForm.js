@@ -20,9 +20,14 @@ const getFormById = async (id) => {
 const RenderedForm = (props) => {
   // const history = useHistory();
   const formId = props.match.params[0];
+  const [privateForm, setPrivateForm] = useState(false)
 
   useEffect(() => {
     getFormById(formId).then(({ data }) => {
+      if (data.private) {
+        setPrivateForm(true)
+        return;
+      }
       const container = document.getElementById("fb-rendered-form");
       const formData = data.questions;
       const formRenderOpts = {
@@ -34,7 +39,7 @@ const RenderedForm = (props) => {
     });
   }, []);
 
-  return (
+  return privateForm ? "This form is private" : (
     <div>
       <div id="fb-rendered-form" className="form" />
     </div>

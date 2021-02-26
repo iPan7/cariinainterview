@@ -120,6 +120,13 @@ const deleteForm = async (_id) => {
   }
 }
 
+const makePrivate = async (id, formData) => {
+  try {
+      await axios.patch(`/api/forms/${id}`, formData)
+  } catch (err) {
+      console.log(err)
+  }
+}   
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -166,7 +173,7 @@ render() {
         <div className={classes.heroContent} >
           <Snackbar open={this.state.open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={this.handleClose}>
             <Alert onClose={this.handleClose} severity="info">
-              Your link has been copied!
+              Your share link has been copied!
             </Alert>
           </Snackbar>
           <Container maxWidth="sm">
@@ -199,9 +206,14 @@ render() {
                     <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
                       View
                     </Button>
+                    <Button size="small" color="primary" onClick={() => {
+                      makePrivate(card._id, {private: !card.private})
+                    }}>
+                      Make {card.private ? "Public" : "Private"}
+                    </Button>
                     <CopyToClipboard text={`${window.location.origin}/forms/view/${card._id}`}>
                       <Button size="small" color="primary" onClick={this.handleClick}> 
-                        Copy
+                        Share
                       </Button>
                     </CopyToClipboard>
                     <Button size="small" color="primary" component={Link} to={`/forms/edit/${card._id}`}>
