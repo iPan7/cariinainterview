@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Image, ScrollView, Text} from 'react-native';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -169,6 +170,7 @@ render() {
     <React.Fragment>
       <CssBaseline />
       <main>
+        <ScrollView>
         {/* Hero unit */}
         <div className={classes.heroContent} >
           <Snackbar open={this.state.open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={this.handleClose}>
@@ -240,6 +242,7 @@ render() {
             ))}
           </Grid>
         </Container>
+        </ScrollView>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
