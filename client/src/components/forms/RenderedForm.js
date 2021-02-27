@@ -1,4 +1,4 @@
-import React, { Component, createRef, useEffect, useState } from "react";
+import React, { Component, createRef, useEffect, useLayoutEffect, useState } from "react";
 import $ from "jquery";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
@@ -22,7 +22,7 @@ const RenderedForm = (props) => {
   const formId = props.match.params[0];
   const [privateForm, setPrivateForm] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getFormById(formId).then(({ data }) => {
       if (data.private) {
         setPrivateForm(true)
