@@ -228,7 +228,6 @@ render() {
                     >
                       Delete
                     </Button>
-                    <br />
                     <Button size="small" color="primary" onClick={() => {
                       makePrivate(card._id, {private: !card.private})
                     }}>
