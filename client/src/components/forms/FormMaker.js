@@ -120,35 +120,33 @@ const saveForm = async (formData) => {
 class FormMaker extends Component {
     
     state = {
-        name: '',
-        data: [],
+        options: {
+            formData: [
+                {
+                    type: 'header',
+                    subtype: 'h1',
+                    label: 'Untitled'
+                }
+            ],
+            onSave: (event, formData) => {   //Auto binds `this`
+            
+                saveForm({questions: formData});
+                this.props.history.push("/");
+            
+                // Add form via addForm action
+                // this.props.addForm(newForm);
+                // console.log(formData);
+            },
+            disabledActionButtons: ['data'],
+            disableFields: ['hidden']
+    
+        }
     };
 
-    options = {
-        formData: [
-            {
-                type: 'header',
-                subtype: 'h1',
-                label: 'Untitled'
-            }
-        ],
-        onSave: (event, formData) => {   //Auto binds `this`
-        
-            saveForm({questions: formData});
-            this.props.history.push("/");
-        
-            // Add form via addForm action
-            // this.props.addForm(newForm);
-            // console.log(formData);
-        },
-        disabledActionButtons: ['data'],
-        disableFields: ['hidden']
-
-    };
 
     fb = createRef();
     componentDidMount() {
-        $(this.fb.current).formBuilder(this.options);
+        $(this.fb.current).formBuilder(this.state.options);
     }
     render() {
         return (

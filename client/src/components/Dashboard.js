@@ -203,13 +203,9 @@ render() {
                     </Typography>
                   </CardContent>
                   <CardActions>
+                    <ul>
                     <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
                       View
-                    </Button>
-                    <Button size="small" color="primary" onClick={() => {
-                      makePrivate(card._id, {private: !card.private})
-                    }}>
-                      Make {card.private ? "Public" : "Private"}
                     </Button>
                     <CopyToClipboard text={`${window.location.origin}/forms/view/${card._id}`}>
                       <Button size="small" color="primary" onClick={this.handleClick}> 
@@ -232,6 +228,13 @@ render() {
                     >
                       Delete
                     </Button>
+                    <br />
+                    <Button size="small" color="primary" onClick={() => {
+                      makePrivate(card._id, {private: !card.private})
+                    }}>
+                      Make {card.private ? "Public" : "Private"}
+                    </Button>
+                    </ul>
                   </CardActions>
                 </Card>
               </Grid>

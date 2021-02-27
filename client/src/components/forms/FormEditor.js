@@ -32,10 +32,9 @@ const getFormById = async (id) => {
 
 const FormEditor = (props) => {
     // const history = useHistory();
-    const [questions, setQuestions] = useState([])
+    // const [questions, setQuestions] = useState([])
     const formId = props.match.params[0];
-
-    let fb = createRef();
+    const fb = createRef();
     useEffect(() => {
         getFormById(formId).then(({data}) => {
             const options = {
