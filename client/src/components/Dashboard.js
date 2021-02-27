@@ -195,7 +195,7 @@ render() {
           {/* End hero unit */}
           <Grid container spacing={2}>
             {this.state.forms.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4} key={card._id}>
+              <Grid item key={card} xs={12} key={card._id}>
                 <Card className={classes.card}>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
