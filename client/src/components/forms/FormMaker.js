@@ -138,7 +138,7 @@ class FormMaker extends Component {
                 // this.props.addForm(newForm);
                 // console.log(formData);
             },
-            disabledActionButtons: ['data'],
+            disabledActionButtons: ['data', 'clear'],
             disableFields: ['hidden']
     
         }
