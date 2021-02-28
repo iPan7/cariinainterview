@@ -22,7 +22,7 @@ const RenderedForm = (props) => {
   const formId = props.match.params[0];
   // const [privateForm, setPrivateForm] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getFormById(formId).then(({ data }) => {
       // if (data.private) {
       //   setPrivateForm(true);
@@ -39,8 +39,7 @@ const RenderedForm = (props) => {
     });
   }, []);
 
-  //   return privateForm ? "This form is private" : (
-  return (
+    return privateForm ? "This form is private" : (
     <div>
       <div id="fb-rendered-form" className="form" />
     </div>

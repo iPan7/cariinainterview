@@ -107,13 +107,13 @@ const deleteForm = async (_id) => {
   }
 }
 
-// const makePrivate = async (id, formData) => {
-//   try {
-//       await axios.patch(`/api/forms/${id}`, formData)
-//   } catch (err) {
-//       console.log(err)
-//   }
-// }   
+const makePrivate = async (id, formData) => {
+  try {
+      await axios.patch(`/api/forms/${id}`, formData)
+  } catch (err) {
+      console.log(err)
+  }
+}   
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -216,11 +216,11 @@ render() {
                     >
                       Delete
                     </Button>
-                    {/* <Button size="small" color="primary" onClick={() => {
+                    <Button size="small" color="primary" onClick={() => {
                       makePrivate(card._id, {private: !card.private})
                     }}>
                       Make {card.private ? "Public" : "Private"}
-                    </Button> */}
+                    </Button>
                     </ul>
                   </CardActions>
                 </Card>

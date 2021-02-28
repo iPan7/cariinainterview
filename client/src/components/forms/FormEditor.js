@@ -35,7 +35,7 @@ const FormEditor = (props) => {
     // const [questions, setQuestions] = useState([])
     const formId = props.match.params[0];
     const fb = createRef();
-    useLayoutEffect(() => {
+    useEffect(() => {
         getFormById(formId).then(({data}) => {
             const options = {
                 formData: data.questions,
