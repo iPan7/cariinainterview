@@ -1,4 +1,4 @@
-import React, { Component, createRef, useEffect, useState } from 'react';
+import React, { Component, createRef, useEffect, useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
@@ -35,7 +35,7 @@ const FormEditor = (props) => {
     // const [questions, setQuestions] = useState([])
     const formId = props.match.params[0];
     const fb = createRef();
-    useEffect(() => {
+    useLayoutEffect(() => {
         getFormById(formId).then(({data}) => {
             const options = {
                 formData: data.questions,

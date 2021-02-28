@@ -25,13 +25,13 @@ module.exports = {
     }),
     editForm: (requireLogin, async (req, res) => {
         const {id} = req.params;
-        let form;
-        if (req.body.questions) {
-            form = await Form.findByIdAndUpdate(id, {questions: JSON.parse(req.body.questions)});
-        }
-        if (req.body.private === true || req.body.private === false) {
-            form = await Form.findByIdAndUpdate(id, {private: req.body.private});
-        }
+        // let form;
+        // if (req.body.questions) {
+        //     form = await Form.findByIdAndUpdate(id, {questions: JSON.parse(req.body.questions)});
+        // }
+        // if (req.body.private === true || req.body.private === false) {
+        //     form = await Form.findByIdAndUpdate(id, {private: req.body.private});
+        // }
         form.save();
         res.json(form)
     })
