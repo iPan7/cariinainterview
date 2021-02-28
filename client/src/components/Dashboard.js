@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Image, ScrollView, Text} from 'react-native';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -119,38 +119,28 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-class Dashboard extends Component {
+const Dashboard = (props) => {
+  const [forms, setForms] = useState([]);
+  const [open, setOpen] = useState(false);
+  const classes = styles(theme);
 
-  state = {
-    forms: [],
-    open: false,
-  };  
+  const handleClick = () => {
+    setOpen(true)
+  }
 
-  handleClick = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
-    this.setState({open: false});
+    setOpen(false)
   };
 
-  componentDidMount() {
+  useEffect(() => {
     getForms().then(({data}) => {
-      this.setState({forms: data.reverse()})
+      setForms(data.reverse())
     })
-  }
-  // componentDidUpdate() {
-  //   getForms().then(({data}) => {
-  //     this.setState({forms: data.reverse()})
-  //   })
-  // }
+  }, [forms])
 
-render() {
-    const { classes } = this.props;
   return (
     <ThemeProvider theme={theme}>
     <React.Fragment>
@@ -159,8 +149,8 @@ render() {
         <ScrollView>
         {/* Hero unit */}
         <div className={classes.heroContent} >
-          <Snackbar open={this.state.open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={this.handleClose}>
-            <Alert onClose={this.handleClose} severity="info">
+          <Snackbar open={open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="info">
               Your share link has been copied!
             </Alert>
           </Snackbar>
@@ -182,7 +172,7 @@ render() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2}>
-            {this.state.forms.map((card) => (
+            {forms.map((card) => (
               <Grid item key={card} xs={12} key={card._id}>
                 <Card className={classes.card}>
                   <CardContent className={classes.cardContent}>
@@ -196,7 +186,7 @@ render() {
                       View
                     </Button>
                     <CopyToClipboard text={`${window.location.origin}/forms/view/${card._id}`}>
-                      <Button size="small" color="primary" onClick={this.handleClick}> 
+                      <Button size="small" color="primary" onClick={handleClick}> 
                         Share
                       </Button>
                     </CopyToClipboard>
@@ -209,7 +199,7 @@ render() {
                     onClick={() => {
                       deleteForm(card._id).then(res => {
                         getForms().then(({data}) => {
-                          this.setState({forms: data.reverse()})
+                          setForms(data.reverse())
                         })
                       })
                     }}
@@ -244,7 +234,135 @@ render() {
     </React.Fragment>
     </ThemeProvider>
   );
+
 }
-}
+
+// class Dashboard extends Component {
+
+//   state = {
+//     forms: [],
+//     open: false,
+//   };  
+
+//   handleClick = () => {
+//     this.setState({open: true});
+//   };
+
+//   handleClose = (event, reason) => {
+//     if (reason === "clickaway") {
+//       return;
+//     }
+
+//     this.setState({open: false});
+//   };
+
+//   componentDidMount() {
+//     getForms().then(({data}) => {
+//       this.setState({forms: data.reverse()})
+//     })
+//   }
+//   // componentDidUpdate() {
+//   //   getForms().then(({data}) => {
+//   //     this.setState({forms: data.reverse()})
+//   //   })
+//   // }
+
+// render() {
+//     const { classes } = this.props;
+//   return (
+//     <ThemeProvider theme={theme}>
+//     <React.Fragment>
+//       <CssBaseline />
+//       <main>
+//         <ScrollView>
+//         {/* Hero unit */}
+//         <div className={classes.heroContent} >
+//           <Snackbar open={this.state.open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={this.handleClose}>
+//             <Alert onClose={this.handleClose} severity="info">
+//               Your share link has been copied!
+//             </Alert>
+//           </Snackbar>
+//           <Container maxWidth="sm">
+//             <Typography component="h1" variant="h2" align="center" gutterBottom>
+//               Welcome to the Dashboard!
+//             </Typography>
+//             <div className={classes.heroButtons}>
+//               <Grid container spacing={2} justify="center">
+//                 <Grid item>
+//                   <Button component={Link} to={'/forms/new'} variant="contained">
+//                     Create New Form
+//                   </Button>
+//                 </Grid>
+//               </Grid>
+//             </div>
+//           </Container>
+//         </div>
+//         <Container className={classes.cardGrid} maxWidth="md">
+//           {/* End hero unit */}
+//           <Grid container spacing={2}>
+//             {this.state.forms.map((card) => (
+//               <Grid item key={card} xs={12} key={card._id}>
+//                 <Card className={classes.card}>
+//                   <CardContent className={classes.cardContent}>
+//                     <Typography gutterBottom variant="h5" component="h2">
+//                       {card.questions[0].label}
+//                     </Typography>
+//                   </CardContent>
+//                   <CardActions>
+//                     <ul>
+//                     <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
+//                       View
+//                     </Button>
+//                     <CopyToClipboard text={`${window.location.origin}/forms/view/${card._id}`}>
+//                       <Button size="small" color="primary" onClick={this.handleClick}> 
+//                         Share
+//                       </Button>
+//                     </CopyToClipboard>
+//                     <Button size="small" color="primary" component={Link} to={`/forms/edit/${card._id}`}>
+//                       Edit
+//                     </Button>
+//                     <Button 
+//                     size="small" 
+//                     color="primary" 
+//                     onClick={() => {
+//                       deleteForm(card._id).then(res => {
+//                         getForms().then(({data}) => {
+//                           this.setState({forms: data.reverse()})
+//                         })
+//                       })
+//                     }}
+//                     >
+//                       Delete
+//                     </Button>
+//                     <Button size="small" color="primary" onClick={() => {
+//                       makePrivate(card._id, {private: !card.private})
+//                     }}>
+//                       Make {card.private ? "Public" : "Private"}
+//                     </Button>
+//                     </ul>
+//                   </CardActions>
+//                 </Card>
+//               </Grid>
+//             ))}
+//           </Grid>
+//         </Container>
+//         </ScrollView>
+//       </main>
+//       {/* Footer */}
+//       <footer className={classes.footer}>
+//         <Typography align="center" gutterBottom>
+//         <img src={cariinalogo} alt="cariina logo" />
+//         </Typography>
+//         <WhiteTextTypography variant="subtitle1" align="center" component="p">
+//         A suite of integrated school operations tools, helping administrators organize transportation, events, and extracurriculars
+//         </WhiteTextTypography>
+//         <Copyright />
+//       </footer>
+//       {/* End footer */}
+//     </React.Fragment>
+//     </ThemeProvider>
+//   );
+// }
+// }
 
 export default withStyles(styles)(Dashboard);
