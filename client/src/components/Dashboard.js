@@ -143,11 +143,11 @@ class Dashboard extends Component {
       this.setState({forms: data.reverse()})
     })
   }
-  componentDidUpdate() {
-    getForms().then(({data}) => {
-      this.setState({forms: data.reverse()})
-    })
-  }
+  // componentDidUpdate() {
+  //   getForms().then(({data}) => {
+  //     this.setState({forms: data.reverse()})
+  //   })
+  // }
 
 render() {
     const { classes } = this.props;
