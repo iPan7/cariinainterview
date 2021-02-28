@@ -18,8 +18,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-require('default-passive-events');
-
 const WhiteTextTypography = withStyles({
   root: {
     color: "#FFFFFF"
@@ -221,17 +219,6 @@ const Dashboard = (props) => {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography align="center" gutterBottom>
-        <img src={cariinalogo} alt="cariina logo" />
-        </Typography>
-        <WhiteTextTypography variant="subtitle1" align="center" component="p">
-        A suite of integrated school operations tools, helping administrators organize transportation, events, and extracurriculars
-        </WhiteTextTypography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
     </React.Fragment>
     </ThemeProvider>
   );
@@ -366,4 +353,4 @@ const Dashboard = (props) => {
 // }
 // }
 
-export default withStyles(styles)(Dashboard);
+export default (Dashboard);
