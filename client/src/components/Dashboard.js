@@ -139,21 +139,20 @@ const Dashboard = (props) => {
     getForms().then(({data}) => {
       setForms(data.reverse())
     })
-  }, [forms])
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
     <React.Fragment>
       <CssBaseline />
       <main>
-        <ScrollView>
-        {/* Hero unit */}
-        <div className={classes.heroContent} >
-          <Snackbar open={open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={handleClose}>
             <Alert onClose={handleClose} severity="info">
               Your share link has been copied!
             </Alert>
           </Snackbar>
+        {/* Hero unit */}
+        <div className={classes.heroContent} >
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" gutterBottom>
               Welcome to the Dashboard!
@@ -208,6 +207,9 @@ const Dashboard = (props) => {
                     </Button>
                     <Button size="small" color="primary" onClick={() => {
                       makePrivate(card._id, {private: !card.private})
+                      getForms().then(({data}) => {
+                        setForms(data.reverse())
+                      })
                     }}>
                       Make {card.private ? "Public" : "Private"}
                     </Button>
@@ -218,7 +220,6 @@ const Dashboard = (props) => {
             ))}
           </Grid>
         </Container>
-        </ScrollView>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>

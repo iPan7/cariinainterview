@@ -132,6 +132,7 @@ class FormMaker extends Component {
             
                 saveForm({questions: formData});
                 this.props.history.push("/");
+                window.location.reload();
             
                 // Add form via addForm action
                 // this.props.addForm(newForm);
