@@ -1,9 +1,6 @@
-import React, { Component, createRef, useEffect, useLayoutEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, {createRef, useEffect } from 'react';
 import $ from 'jquery';
-import PropTypes from 'prop-types';
 import axios from 'axios';
-// import { useHistory } from "react-router-dom";
 
 window.jQuery = $;
 window.$ = $;
@@ -19,8 +16,6 @@ const editForm = async (id, formData) => {
     }
 } 
 
-// const history = useHistory();
-
 const getFormById = async (id) => {
     try {
         const form = await axios.get(`/api/forms/${id}`);
@@ -31,22 +26,18 @@ const getFormById = async (id) => {
   } 
 
 const FormEditor = (props) => {
-    // const history = useHistory();
-    // const [questions, setQuestions] = useState([])
     const formId = props.match.params[0];
     const fb = createRef();
     useEffect(() => {
         getFormById(formId).then(({data}) => {
             const options = {
                 formData: data.questions,
+                // onSave option is built into formBuilder. It is a click event that does a callback
                 onSave: (event, formData) => {   //Auto binds `this`
                 
                     editForm(formId, {questions: formData});
                     props.history.push("/");
-                
-                    // Add form via addForm action
-                    // this.props.addForm(newForm);
-                    // console.log(formData);
+                    // ^ calls this function and then redirects the user to the dashboard
                 },
                 disabledActionButtons: ['data', 'clear'],
                 disableFields: ['hidden']

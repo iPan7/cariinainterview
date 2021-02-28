@@ -133,8 +133,10 @@ const Dashboard = (props) => {
     setOpen(false)
   };
 
+  // when dashboard loads run this function
   useEffect(() => {
     getForms().then(({data}) => {
+      // forms = data
       setForms(data.reverse())
     })
   }, [])
@@ -194,6 +196,7 @@ const Dashboard = (props) => {
                     size="small" 
                     color="primary" 
                     onClick={() => {
+                      console.log(card)
                       deleteForm(card._id).then(res => {
                         getForms().then(({data}) => {
                           setForms(data.reverse())
@@ -225,132 +228,5 @@ const Dashboard = (props) => {
 
 }
 
-// class Dashboard extends Component {
-
-//   state = {
-//     forms: [],
-//     open: false,
-//   };  
-
-//   handleClick = () => {
-//     this.setState({open: true});
-//   };
-
-//   handleClose = (event, reason) => {
-//     if (reason === "clickaway") {
-//       return;
-//     }
-
-//     this.setState({open: false});
-//   };
-
-//   componentDidMount() {
-//     getForms().then(({data}) => {
-//       this.setState({forms: data.reverse()})
-//     })
-//   }
-//   // componentDidUpdate() {
-//   //   getForms().then(({data}) => {
-//   //     this.setState({forms: data.reverse()})
-//   //   })
-//   // }
-
-// render() {
-//     const { classes } = this.props;
-//   return (
-//     <ThemeProvider theme={theme}>
-//     <React.Fragment>
-//       <CssBaseline />
-//       <main>
-//         <ScrollView>
-//         {/* Hero unit */}
-//         <div className={classes.heroContent} >
-//           <Snackbar open={this.state.open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={this.handleClose}>
-//             <Alert onClose={this.handleClose} severity="info">
-//               Your share link has been copied!
-//             </Alert>
-//           </Snackbar>
-//           <Container maxWidth="sm">
-//             <Typography component="h1" variant="h2" align="center" gutterBottom>
-//               Welcome to the Dashboard!
-//             </Typography>
-//             <div className={classes.heroButtons}>
-//               <Grid container spacing={2} justify="center">
-//                 <Grid item>
-//                   <Button component={Link} to={'/forms/new'} variant="contained">
-//                     Create New Form
-//                   </Button>
-//                 </Grid>
-//               </Grid>
-//             </div>
-//           </Container>
-//         </div>
-//         <Container className={classes.cardGrid} maxWidth="md">
-//           {/* End hero unit */}
-//           <Grid container spacing={2}>
-//             {this.state.forms.map((card) => (
-//               <Grid item key={card} xs={12} key={card._id}>
-//                 <Card className={classes.card}>
-//                   <CardContent className={classes.cardContent}>
-//                     <Typography gutterBottom variant="h5" component="h2">
-//                       {card.questions[0].label}
-//                     </Typography>
-//                   </CardContent>
-//                   <CardActions>
-//                     <ul>
-//                     <Button size="small" color="primary" component={Link} to={`/forms/view/${card._id}`}>
-//                       View
-//                     </Button>
-//                     <CopyToClipboard text={`${window.location.origin}/forms/view/${card._id}`}>
-//                       <Button size="small" color="primary" onClick={this.handleClick}> 
-//                         Share
-//                       </Button>
-//                     </CopyToClipboard>
-//                     <Button size="small" color="primary" component={Link} to={`/forms/edit/${card._id}`}>
-//                       Edit
-//                     </Button>
-//                     <Button 
-//                     size="small" 
-//                     color="primary" 
-//                     onClick={() => {
-//                       deleteForm(card._id).then(res => {
-//                         getForms().then(({data}) => {
-//                           this.setState({forms: data.reverse()})
-//                         })
-//                       })
-//                     }}
-//                     >
-//                       Delete
-//                     </Button>
-//                     <Button size="small" color="primary" onClick={() => {
-//                       makePrivate(card._id, {private: !card.private})
-//                     }}>
-//                       Make {card.private ? "Public" : "Private"}
-//                     </Button>
-//                     </ul>
-//                   </CardActions>
-//                 </Card>
-//               </Grid>
-//             ))}
-//           </Grid>
-//         </Container>
-//         </ScrollView>
-//       </main>
-//       {/* Footer */}
-//       <footer className={classes.footer}>
-//         <Typography align="center" gutterBottom>
-//         <img src={cariinalogo} alt="cariina logo" />
-//         </Typography>
-//         <WhiteTextTypography variant="subtitle1" align="center" component="p">
-//         A suite of integrated school operations tools, helping administrators organize transportation, events, and extracurriculars
-//         </WhiteTextTypography>
-//         <Copyright />
-//       </footer>
-//       {/* End footer */}
-//     </React.Fragment>
-//     </ThemeProvider>
-//   );
-// }
-// }
 
 export default (Dashboard);

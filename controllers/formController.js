@@ -3,6 +3,7 @@ const Form = require('../models/Form');
 
 module.exports = {
     saveForm: (requireLogin, async (req,res) => {
+        // questions object from FormMaker post request
         const { questions } = req.body;
         const form = await new Form({
             questions: JSON.parse(questions),
@@ -14,6 +15,7 @@ module.exports = {
     }),
     getForms: (requireLogin, async (req, res) => {
         Form.find({_user: req.user.id}).then(forms => res.json(forms))
+        // ^ find all forms with a specific user id and then return all the forms. This is why you can't see the forms from other users.
     }),
     deleteForm: (requireLogin, async (req, res) => {
         const { id } = req.params;

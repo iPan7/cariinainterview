@@ -5,7 +5,6 @@ const passport = require('passport');
 const keys =require('./config/keys')
 const bodyParser = require('body-parser');
 require('./models/User');
-require('./models/Survey');
 require('./models/Form');
 require('./models/Question');
 require('./models/Values');
@@ -38,7 +37,6 @@ app.use(passport.session());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 require('./routes/authRoutes')(app);
-require('./routes/surveyRoutes')(app);
 require('./routes/formRoutes')(app);
 
 

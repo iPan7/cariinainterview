@@ -108,7 +108,7 @@ class Landing extends Component {
                   Welcome to Cariina Forms!
                 </Typography>
                 <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              This application allows you to create forms for your school's daily operations. Create custom permission slips, class surveys, sign up sheets, gradic rubrics, lesson plans, and more!
+              This application allows you to create forms for your school's daily operations. Create custom permission slips, class surveys, sign up sheets, grading rubrics, lesson plans, and more!
             </Typography>
               </Container>
             </div>
