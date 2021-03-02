@@ -1,21 +1,12 @@
 import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { View } from "react-native";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CopyLink from "@material-ui/core/Link";
 import cariinalogo from "./cariinalogo.svg";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 
 const WhiteTextTypography = withStyles({
   root: {
@@ -96,13 +87,12 @@ class Landing extends Component {
           <CssBaseline />
           <main>
             {/* Hero unit */}
-            <div className={classes.heroContent}>
+            <View className={classes.heroContent}>
               <Container maxWidth="sm">
                 <Typography
                   component="h1"
                   variant="h2"
                   align="center"
-                  color="TextPrimary"
                   gutterBottom
                 >
                   Welcome to Cariina Forms!
@@ -111,7 +101,7 @@ class Landing extends Component {
               This application allows you to create forms for your school's daily operations. Create custom permission slips, class surveys, sign up sheets, grading rubrics, lesson plans, and more!
             </Typography>
               </Container>
-            </div>
+            </View>
           </main>
           {/* Footer */}
           <footer className={classes.footer}>
@@ -121,7 +111,6 @@ class Landing extends Component {
             <WhiteTextTypography
               variant="subtitle1"
               align="center"
-              color="textPrimary"
               component="p"
             >
               A suite of integrated school operations tools, helping

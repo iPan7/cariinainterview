@@ -11,12 +11,6 @@ import cariinalogo from './cariinalogo.svg';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import './logincolor.css';
 
-const WhiteTextTypography = withStyles({
-    root: {
-      color: "#FFFFFF"
-    }
-  })(Typography);  
-
 const theme = createMuiTheme({
   palette: {
     primary: {

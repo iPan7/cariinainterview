@@ -20,8 +20,6 @@ const saveForm = async (formData) => {
 //   await axios.post('/api/forms', formData)  
 // }
 
-// const history = useHistory();
-
 class FormMaker extends Component {
     
     state = {
